@@ -8,6 +8,9 @@ app.py - CyberMeihua Streamlit 应用入口
 
 import json
 from datetime import datetime
+from zoneinfo import ZoneInfo
+
+_LOCAL_TZ = ZoneInfo("Europe/Berlin")
 
 import streamlit as st
 
@@ -131,14 +134,14 @@ with st.sidebar:
         with col1:
             divination_date = st.date_input(
                 "日期",
-                value=datetime.now().date(),
+                value=datetime.now(tz=_LOCAL_TZ).date(),
                 key="div_date",
             )
         with col2:
             divination_hour = st.number_input(
                 "时辰（0-23）",
                 min_value=0, max_value=23,
-                value=datetime.now().hour,
+                value=datetime.now(tz=_LOCAL_TZ).hour,
                 key="div_hour",
             )
         session_name_time = st.text_input(
@@ -170,7 +173,7 @@ with st.sidebar:
         div_num_hour = st.number_input(
             "时辰（0-23，默认当前）",
             min_value=0, max_value=23,
-            value=datetime.now().hour,
+            value=datetime.now(tz=_LOCAL_TZ).hour,
             key="div_num_hour",
         )
         session_name_num = st.text_input(
